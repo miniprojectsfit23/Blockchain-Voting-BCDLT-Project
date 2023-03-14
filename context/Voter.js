@@ -251,9 +251,10 @@ export const VotingProvider = ({ children }) => {
 			const winner = await contract.declareResult();
 			setWinner(winner);
 		} catch (error) {
+			setWinner(["Error", "", new dummy(), "", new dummy(), "", ""]);
 			const er = error.message;
 			const erSubstr = er.substr(er.indexOf('with reason string "') + 20);
-			await setError(erSubstr.substr(0, erSubstr.indexOf('"')));
+			setError(erSubstr.substr(0, erSubstr.indexOf('"')));
 		}
 	};
 	return (

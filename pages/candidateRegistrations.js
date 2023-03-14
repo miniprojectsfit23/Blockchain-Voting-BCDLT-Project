@@ -172,7 +172,7 @@ const candidateRegistrations = () => {
 					/>
 					<p>Notice For User</p>
 					<p>
-						Organizer <span>0x93339999993333</span>
+						Organizer <span>0x5FbDB2315678afecb367f032d93F642f64180aa3</span>
 					</p>
 					<p>Only Organizer of the Voting Contract can Create Candidates</p>
 				</div>
