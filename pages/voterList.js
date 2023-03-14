@@ -5,8 +5,10 @@ import Style from "@/styles/voterList.module.css";
 import { VotingContext } from "@/context/Voter";
 
 const voterList = () => {
-	const { getAllVoterData, voterArray } = useContext(VotingContext);
+	const { getAllVoterData, voterArray, checkIfWalletIsConnected } =
+		useContext(VotingContext);
 	useEffect(() => {
+		checkIfWalletIsConnected();
 		getAllVoterData();
 	}, []);
 	return (

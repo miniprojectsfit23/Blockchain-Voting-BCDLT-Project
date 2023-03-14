@@ -7,6 +7,6 @@ Try running some of the following tasks:
 ```shell
 After project setup: npx hardhat init
 
-Deploy Contract: npx hardhat run scripts/deploy.js --network localhost
 Deploy Blockchain: npx hardhat node
+Deploy Contract: npx hardhat run scripts/deploy.js --network localhost
 ```

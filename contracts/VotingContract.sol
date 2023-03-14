@@ -179,4 +179,28 @@ contract VotingContract{
 	}
 
 	//Voter Functions End
+	function declareResult() public view returns (string memory,string memory,uint256,string memory,uint256,string memory,address){
+		require(votingOrganizer == msg.sender,"Only Organizer can declare result");
+		uint256 max=0;
+		string memory name = candidates[candidateAddress[0]].name;
+		string memory age = candidates[candidateAddress[0]].age;
+		string memory image = candidates[candidateAddress[0]].image;
+		string memory ipfs = candidates[candidateAddress[0]].ipfs;
+		uint256 candidateId = candidates[candidateAddress[0]].candidateId;
+		uint256 voteCount = candidates[candidateAddress[0]].voteCount;
+		address _address = candidates[candidateAddress[0]]._address;
+		for(uint256 i=0;i<candidateAddress.length;i++){
+			if(candidates[candidateAddress[i]].voteCount > max){
+				max = candidates[candidateAddress[i]].voteCount;
+				name = candidates[candidateAddress[i]].name;
+				candidateId = candidates[candidateAddress[i]].candidateId;
+				age = candidates[candidateAddress[i]].age;
+				image = candidates[candidateAddress[i]].image;
+				ipfs = candidates[candidateAddress[i]].ipfs;
+				voteCount = candidates[candidateAddress[i]].voteCount;
+				_address = candidates[candidateAddress[i]]._address;
+			}
+		}
+		return(age,name,candidateId,image,voteCount,ipfs,_address);
+	}
 }

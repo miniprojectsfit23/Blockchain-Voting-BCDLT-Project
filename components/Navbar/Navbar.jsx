@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiFillLock, AiFillUnlock } from "react-icons/ai";
@@ -17,7 +17,6 @@ const Navbar = () => {
 			setOpenNav(true);
 		}
 	};
-
 	return (
 		<div className={Style.navbar}>
 			{error === "" ? (
@@ -69,6 +68,9 @@ const Navbar = () => {
 									</p>
 									<p>
 										<Link href={{ pathname: "/voterList" }}>Voter List</Link>
+									</p>
+									<p>
+										<Link href={{ pathname: "/winner" }}>Declare Result</Link>
 									</p>
 								</div>
 							)}

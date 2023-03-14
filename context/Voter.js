@@ -17,7 +17,11 @@ const fetchContract = (signerOrProvider) =>
 	new ethers.Contract(VotingAddress, VotingAddressABI, signerOrProvider);
 
 export const VotingContext = React.createContext();
-
+class dummy {
+	toNumber() {
+		return 0;
+	}
+}
 export const VotingProvider = ({ children }) => {
 	const router = useRouter();
 
@@ -27,10 +31,18 @@ export const VotingProvider = ({ children }) => {
 	const pushCandidate = [];
 	const candidateIndex = [];
 	const [candidateArray, setCandidateArray] = useState(pushCandidate);
+	const [winner, setWinner] = useState([
+		"No Winner",
+		"",
+		new dummy(),
+		"",
+		new dummy(),
+		"",
+		"",
+	]);
 	//Candidate Data End
 
 	const [error, setError] = useState("");
-	const highestVote = [];
 
 	//Voter Data Start
 	const pushVoter = [];
@@ -219,9 +231,31 @@ export const VotingProvider = ({ children }) => {
 			setError("Error in Getting Candidate Data");
 		}
 	};
-	useEffect(() => {
-		console.log(voterLength);
-	}, []);
+	//Declare Result
+	const declareResult = async () => {
+		try {
+			//Connecting Smart Contract
+			const web3modal = new Web3Modal();
+			const connection = await web3modal.connect();
+			const provider = new ethers.providers.Web3Provider(connection);
+			const signer = provider.getSigner();
+			const contract = fetchContract(signer);
+			//All Candidates
+			const allCandidates = await contract.getCandidate();
+			allCandidates.map(async (el) => {
+				const singleCandidateData = await contract.getCandidateData(el);
+				pushCandidate.push(singleCandidateData);
+				candidateIndex.push(singleCandidateData[2].toNumber());
+			});
+			//Candidate Length
+			const winner = await contract.declareResult();
+			setWinner(winner);
+		} catch (error) {
+			const er = error.message;
+			const erSubstr = er.substr(er.indexOf('with reason string "') + 20);
+			await setError(erSubstr.substr(0, erSubstr.indexOf('"')));
+		}
+	};
 	return (
 		<VotingContext.Provider
 			value={{
@@ -233,6 +267,7 @@ export const VotingProvider = ({ children }) => {
 				giveVote,
 				setCandidate,
 				getNewCandidate,
+				declareResult,
 
 				error,
 				voterArray,
@@ -242,6 +277,7 @@ export const VotingProvider = ({ children }) => {
 				candidateLength,
 				candidateArray,
 				setError,
+				winner,
 			}}
 		>
 			{children}

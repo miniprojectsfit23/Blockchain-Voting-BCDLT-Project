@@ -16,9 +16,9 @@ const Card = ({ candidateArray, giveVote }) => {
 						<h2>
 							{el[1]} #{el[2].toNumber()}
 						</h2>
-						<p>{el[0]}</p>
+						<p>Age: {el[0]}</p>
 						<p>Address: {el[6].slice(0, 30)}...</p>
-						<p className={Style.total}>Total Vote</p>
+						<p className={Style.total}>Total Votes</p>
 					</div>
 					<div className={Style.card_vote}>
 						<p>{el[4].toNumber()}</p>

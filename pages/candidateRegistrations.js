@@ -18,8 +18,13 @@ const candidateRegistrations = () => {
 	});
 
 	const router = useRouter();
-	const { uploadToIPFS, setCandidate, candidateArray, getNewCandidate } =
-		useContext(VotingContext);
+	const {
+		uploadToIPFS,
+		setCandidate,
+		candidateArray,
+		getNewCandidate,
+		checkIfWalletIsConnected,
+	} = useContext(VotingContext);
 
 	//Voter Image Drop
 	const onDrop = useCallback(async (acceptedFile) => {
@@ -34,6 +39,7 @@ const candidateRegistrations = () => {
 	});
 
 	useEffect(() => {
+		checkIfWalletIsConnected();
 		getNewCandidate();
 	}, []);
 
