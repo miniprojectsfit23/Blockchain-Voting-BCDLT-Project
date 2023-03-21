@@ -91,11 +91,23 @@ export const VotingProvider = ({ children }) => {
 			const cid = await client.put([newFile], {
 				name: fileName,
 			});
-			const url = `https://${cid}.ipfs.dweb.link/${fileName}`;
+			const url = `https://${cid}.ipfs.w3s.link/${fileName}`;
 			return url;
 		} catch (error) {
 			setError("Error Uploading file to IPFS");
 		}
+	};
+	//returns owner
+	const getOwner = async () => {
+		//Connecting Smart Contract
+		const web3modal = new Web3Modal();
+		const connection = await web3modal.connect();
+		const provider = new ethers.providers.Web3Provider(connection);
+		const signer = provider.getSigner();
+		const contract = fetchContract(signer);
+
+		const owner = await contract.votingOrganizer();
+		return owner;
 	};
 
 	//VOTER SECTION----------------------------------------------
@@ -240,13 +252,6 @@ export const VotingProvider = ({ children }) => {
 			const provider = new ethers.providers.Web3Provider(connection);
 			const signer = provider.getSigner();
 			const contract = fetchContract(signer);
-			//All Candidates
-			const allCandidates = await contract.getCandidate();
-			allCandidates.map(async (el) => {
-				const singleCandidateData = await contract.getCandidateData(el);
-				pushCandidate.push(singleCandidateData);
-				candidateIndex.push(singleCandidateData[2].toNumber());
-			});
 			//Candidate Length
 			const winner = await contract.declareResult();
 			setWinner(winner);
@@ -269,6 +274,7 @@ export const VotingProvider = ({ children }) => {
 				setCandidate,
 				getNewCandidate,
 				declareResult,
+				getOwner,
 
 				error,
 				voterArray,

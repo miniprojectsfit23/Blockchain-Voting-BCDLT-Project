@@ -23,6 +23,7 @@ const Home = () => {
 		getNewCandidate();
 		getAllVoterData();
 		checkIfWalletIsConnected();
+		console.log(candidateArray);
 	}, []);
 
 	return (

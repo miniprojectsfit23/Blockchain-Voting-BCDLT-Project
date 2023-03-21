@@ -8,8 +8,13 @@ import Style from "@/components/Navbar/Navbar.module.css";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
-	const { connectWallet, error, currentAccount } = useContext(VotingContext);
+	const { connectWallet, error, currentAccount, getOwner, candidateLength } =
+		useContext(VotingContext);
 	const [openNav, setOpenNav] = useState(false);
+	const [owner, setOwner] = useState();
+	getOwner().then((res) => {
+		setOwner(res);
+	});
 	const openNavigation = () => {
 		if (openNav) {
 			setOpenNav(false);
@@ -17,6 +22,7 @@ const Navbar = () => {
 			setOpenNav(true);
 		}
 	};
+
 	return (
 		<div className={Style.navbar}>
 			{error === "" ? (
@@ -69,9 +75,11 @@ const Navbar = () => {
 									<p>
 										<Link href={{ pathname: "/voterList" }}>Voter List</Link>
 									</p>
-									<p>
-										<Link href={{ pathname: "/winner" }}>Declare Result</Link>
-									</p>
+									{currentAccount - owner == 0 && candidateLength > 0 && (
+										<p>
+											<Link href={{ pathname: "/winner" }}>Declare Result</Link>
+										</p>
+									)}
 								</div>
 							)}
 						</div>
