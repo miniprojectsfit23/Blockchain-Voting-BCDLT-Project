@@ -23,7 +23,12 @@ const VoterCard = ({ voterArray }) => {
 			{voterArray.map((el, i) => (
 				<div className={Style.card_box}>
 					<div className={Style.image}>
-						<img src={el[2]} alt="Voter Image" />
+						{/* <img src={el[2]} alt="Voter Image" /> */}
+						<Image
+							src={images.upload}
+							objectFit="contain"
+							alt="Candidate Image"
+						/>
 					</div>
 					<div className={Style.card_info}>
 						<h2>

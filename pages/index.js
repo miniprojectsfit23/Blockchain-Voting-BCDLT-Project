@@ -20,6 +20,7 @@ const Home = () => {
 	} = useContext(VotingContext);
 
 	useEffect(() => {
+		console.log();
 		getNewCandidate();
 		getAllVoterData();
 		checkIfWalletIsConnected();

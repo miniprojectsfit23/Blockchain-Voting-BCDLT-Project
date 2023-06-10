@@ -79,7 +79,14 @@ const allowedVoters = () => {
 							{voterArray.map((el, i) => (
 								<div key={i + 1} className={Style.card_box}>
 									<div className={Style.image}>
-										<img src={el[2]} alt="Voter Photo" />
+										{/* <img src={el[2]} alt="Voter Photo" /> */}
+										<Image
+											src={images.upload}
+											height={50}
+											width={50}
+											objectFit="contain"
+											alt="Candidate Image"
+										/>
 									</div>
 									<div className={Style.card_info}>
 										<p>

@@ -125,13 +125,15 @@ export const VotingProvider = ({ children }) => {
 			const signer = provider.getSigner();
 			const contract = fetchContract(signer);
 
-			const data = JSON.stringify({ name, address, position, image: fileUrl });
-			const fileName = `Voter_${uuid.new()}.json`;
-			const fileNew = new File([data], fileName);
-			const cid = await client.put([fileNew], {
-				name: fileName,
-			});
-			const url = `https://${cid}.ipfs.dweb.link/${fileName}`;
+			// const data = JSON.stringify({ name, address, position, image: fileUrl });
+			// const fileName = `Voter_${uuid.new()}.json`;
+			// const fileNew = new File([data], fileName);
+			// const cid = await client.put([fileNew], {
+			// 	name: fileName,
+			// });
+			// const url = `https://${cid}.ipfs.dweb.link/${fileName}`;
+			const url = "";
+			fileUrl = "";
 			const voter = await contract.voterRight(address, name, fileUrl, url);
 			voter.wait();
 			router.push("/voterList");
@@ -199,13 +201,15 @@ export const VotingProvider = ({ children }) => {
 			const signer = provider.getSigner();
 			const contract = fetchContract(signer);
 
-			const data = JSON.stringify({ name, address, image: fileUrl, age });
-			const fileName = `Candidate_${uuid.new()}.json`;
-			const fileNew = new File([data], fileName);
-			const cid = await client.put([fileNew], {
-				name: fileName,
-			});
-			const url = `https://${cid}.ipfs.dweb.link/${fileName}`;
+			// const data = JSON.stringify({ name, address, image: fileUrl, age });
+			// const fileName = `Candidate_${uuid.new()}.json`;
+			// const fileNew = new File([data], fileName);
+			// const cid = await client.put([fileNew], {
+			// 	name: fileName,
+			// });
+			// const url = `https://${cid}.ipfs.dweb.link/${fileName}`;
+			fileUrl = "";
+			const url = "";
 			const candidate = await contract.setCandidate(
 				address,
 				age,

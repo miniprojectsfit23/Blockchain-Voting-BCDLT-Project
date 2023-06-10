@@ -179,6 +179,7 @@ contract VotingContract{
 	}
 
 	//Voter Functions End
+	
 	function declareResult() public view returns (string memory,string memory,uint256,string memory,uint256,string memory,address){
 		require(votingOrganizer == msg.sender,"Only Organizer can declare result");
 		uint256 max=0;
